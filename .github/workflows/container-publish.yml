@@ -6,7 +6,7 @@ on:
     branches: [ main ]
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ehfd/nvidia-glx-desktop
+  IMAGE_NAME: findmyway/nvidia-glx-desktop
 jobs:
   build:
     runs-on: ubuntu-latest

@@ -1,6 +1,6 @@
 # Ubuntu release versions 18.04 and 20.04 are supported
 ARG UBUNTU_RELEASE=20.04
-FROM nvcr.io/nvidia/cudagl:11.0.3-runtime-ubuntu${UBUNTU_RELEASE}
+FROM nvcr.io/nvidia/cudagl:11.4.2-runtime-ubuntu${UBUNTU_RELEASE}
 
 LABEL maintainer "https://github.com/ehfd,https://github.com/danisla"
 
@@ -39,64 +39,64 @@ ENV LC_ALL en_US.UTF-8
 # Install Xorg, MATE Desktop, and others
 RUN dpkg --add-architecture i386 && \
     apt-get update && apt-get install --no-install-recommends -y \
-        software-properties-common \
-        apt-utils \
-        build-essential \
-        ca-certificates \
-        kmod \
-        libc6:i386 \
-        libc6-dev \
-        curl \
-        file \
-        wget \
-        gzip \
-        zip \
-        unzip \
-        gcc \
-        git \
-        jq \
-        make \
-        python \
-        python-numpy \
-        python3 \
-        python3-numpy \
-        mlocate \
-        nano \
-        vim \
-        htop \
-        firefox \
-        supervisor \
-        net-tools \
-        libpci3 \
-        libelf-dev \
-        libglvnd-dev \
-        pkg-config \
-        mesa-utils \
-        mesa-utils-extra \
-        libglu1 \
-        libglu1:i386 \
-        libsm6 \
-        libxv1 \
-        libxv1:i386 \
-        libxtst6 \
-        libxtst6:i386 \
-        x11-xkb-utils \
-        x11-xserver-utils \
-        x11-apps \
-        dbus-x11 \
-        libdbus-c++-1-0v5 \
-        xauth \
-        xinit \
-        xfonts-base \
-        xkb-data \
-        libxrandr-dev \
-        xorg-dev && \
+    software-properties-common \
+    apt-utils \
+    build-essential \
+    ca-certificates \
+    kmod \
+    libc6:i386 \
+    libc6-dev \
+    curl \
+    file \
+    wget \
+    gzip \
+    zip \
+    unzip \
+    gcc \
+    git \
+    jq \
+    make \
+    python \
+    python-numpy \
+    python3 \
+    python3-numpy \
+    mlocate \
+    nano \
+    vim \
+    htop \
+    firefox \
+    supervisor \
+    net-tools \
+    libpci3 \
+    libelf-dev \
+    libglvnd-dev \
+    pkg-config \
+    mesa-utils \
+    mesa-utils-extra \
+    libglu1 \
+    libglu1:i386 \
+    libsm6 \
+    libxv1 \
+    libxv1:i386 \
+    libxtst6 \
+    libxtst6:i386 \
+    x11-xkb-utils \
+    x11-xserver-utils \
+    x11-apps \
+    dbus-x11 \
+    libdbus-c++-1-0v5 \
+    xauth \
+    xinit \
+    xfonts-base \
+    xkb-data \
+    libxrandr-dev \
+    xorg-dev && \
     apt-get install -y ubuntu-mate-desktop libreoffice && \
     if [ "${UBUNTU_RELEASE}" = "18.04" ]; then apt-get install --no-install-recommends -y vulkan-utils; else apt-get install --no-install-recommends -y vulkan-tools; fi && \
     # Remove Bluetooth packages that throw errors
     apt-get autoremove --purge -y \
-        blueman \
-        pulseaudio-module-bluetooth && \
+    blueman \
+    pulseaudio-module-bluetooth && \
     rm -rf /var/lib/apt/lists/*
 
 # Wine, Winetricks, and PlayOnLinux, comment out the below lines to disable
@@ -105,9 +105,9 @@ RUN if [ "${UBUNTU_RELEASE}" = "18.04" ]; then add-apt-repository ppa:cybermax-d
     curl -fsSL https://dl.winehq.org/wine-builds/winehq.key | APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1 apt-key add - && \
     apt-add-repository "deb https://dl.winehq.org/wine-builds/ubuntu/ $(grep VERSION_CODENAME= /etc/os-release | cut -d= -f2) main" && \
     apt-get update && apt-get install -y \
-        winehq-${WINE_BRANCH} \
-        q4wine \
-        playonlinux && \
+    winehq-${WINE_BRANCH} \
+    q4wine \
+    playonlinux && \
     rm -rf /var/lib/apt/lists/* && \
     curl -fsSL -o /usr/bin/winetricks https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks && \
     chmod 755 /usr/bin/winetricks && \
@@ -115,34 +115,34 @@ RUN if [ "${UBUNTU_RELEASE}" = "18.04" ]; then add-apt-repository ppa:cybermax-d
 
 # Install latest selkies-gstreamer (https://github.com/selkies-project/selkies-gstreamer) build, Python application, and web application
 RUN apt-get update && apt-get install --no-install-recommends -y \
-        build-essential \
-        python3-pip \
-        python3-dev \
-        python3-gi \
-        python3-setuptools \
-        python3-wheel \
-        tzdata \
-        sudo \
-        udev \
-        xclip \
-        x11-utils \
-        xdotool \
-        wmctrl \
-        jq \
-        gdebi-core \
-        x11-xserver-utils \
-        xserver-xorg-core \
-        libopus0 \
-        libgdk-pixbuf2.0-0 \
-        libsrtp2-1 \
-        libxdamage1 \
-        libxml2-dev \
-        libwebrtc-audio-processing1 \
-        libcairo-gobject2 \
-        pulseaudio \
-        libpulse0 \
-        libpangocairo-1.0-0 \
-        libgirepository1.0-dev && \
+    build-essential \
+    python3-pip \
+    python3-dev \
+    python3-gi \
+    python3-setuptools \
+    python3-wheel \
+    tzdata \
+    sudo \
+    udev \
+    xclip \
+    x11-utils \
+    xdotool \
+    wmctrl \
+    jq \
+    gdebi-core \
+    x11-xserver-utils \
+    xserver-xorg-core \
+    libopus0 \
+    libgdk-pixbuf2.0-0 \
+    libsrtp2-1 \
+    libxdamage1 \
+    libxml2-dev \
+    libwebrtc-audio-processing1 \
+    libcairo-gobject2 \
+    pulseaudio \
+    libpulse0 \
+    libpangocairo-1.0-0 \
+    libgirepository1.0-dev && \
     rm -rf /var/lib/apt/lists/* && \
     cd /opt && \
     SELKIES_VERSION=$(curl -fsSL "https://api.github.com/repos/selkies-project/selkies-gstreamer/releases/latest" | jq -r '.tag_name' | sed 's/[^0-9\.\-]*//g') && \
@@ -153,29 +153,29 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 
 # Install latest noVNC web interface for fallback
 RUN apt-get update && apt-get install --no-install-recommends -y \
-        autoconf \
-        automake \
-        autotools-dev \
-        chrpath \
-        debhelper \
-        jq \
-        python \
-        python-numpy \
-        python3 \
-        python3-numpy \
-        libc6-dev \
-        libcairo2-dev \
-        libjpeg-turbo8-dev \
-        libssl-dev \
-        libv4l-dev \
-        libvncserver-dev \
-        libtool-bin \
-        libxdamage-dev \
-        libxinerama-dev \
-        libxrandr-dev \
-        libxss-dev \
-        libxtst-dev \
-        libavahi-client-dev && \
+    autoconf \
+    automake \
+    autotools-dev \
+    chrpath \
+    debhelper \
+    jq \
+    python \
+    python-numpy \
+    python3 \
+    python3-numpy \
+    libc6-dev \
+    libcairo2-dev \
+    libjpeg-turbo8-dev \
+    libssl-dev \
+    libv4l-dev \
+    libvncserver-dev \
+    libtool-bin \
+    libxdamage-dev \
+    libxinerama-dev \
+    libxrandr-dev \
+    libxss-dev \
+    libxtst-dev \
+    libavahi-client-dev && \
     rm -rf /var/lib/apt/lists/* && \
     X11VNC_VERSION=$(curl -fsSL "https://api.github.com/repos/LibVNC/x11vnc/releases/latest" | jq -r '.tag_name' | sed 's/[^0-9\.\-]*//g') && \
     curl -fsSL https://github.com/LibVNC/x11vnc/archive/${X11VNC_VERSION}.tar.gz | tar -xzf - -C /tmp && \
@@ -190,7 +190,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 
 # Create user with password ${PASSWD}
 RUN apt-get update && apt-get install --no-install-recommends -y \
-        sudo && \
+    sudo && \
     rm -rf /var/lib/apt/lists/* && \
     groupadd -g 1000 user && \
     useradd -ms /bin/bash user -u 1000 -g 1000 && \
